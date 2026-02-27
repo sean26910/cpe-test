@@ -1,0 +1,85 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+#include<climits>
+#include<map>
+#include<iomanip>
+#include<chrono>
+#include<math.h>
+using namespace std;
+int s;
+string n;
+int h_drawline[3][10]={{1,0,1,1,0,1,1,1,1,1}
+,{0,0,1,1,1,1,1,0,1,1},{1,0,1,1,0,1,1,0,1,1}};
+int v_drawline[2][10] = {{3,2,2,2,3,1,1,2,3,3},{3,2,1,2,2,2,3,2,3,2}};
+
+void draw_h(int rowtype)
+{
+	for(int i=0;i<n.size();i++)
+	{
+		int digit = n[i]-'0';
+		int type = h_drawline[rowtype][digit];
+		if(i>0)
+			cout<<" ";
+		for(int j=0;j<s+2;j++)
+		{
+			
+			if(j==0 || j==s+1)
+			{
+				cout<<" ";
+				continue;
+			}
+
+			if(h_drawline[rowtype][digit])
+				cout<<"-";
+			else
+				cout<<" ";
+		}
+	}
+	cout<<endl;
+}
+
+void draw_v(int rowtype)
+{
+	for(int i=0;i<s;i++)
+	{
+		for(int j=0;j<n.size();j++)
+		{
+			int digit = n[j] - '0';
+			int type = v_drawline[rowtype][digit];
+
+			if(j>0)
+				cout<<" ";
+
+			if(type==1 || type==3)
+				cout<<"|";
+			else
+				cout<<" ";
+			
+			for(int blank = 0;blank<s;blank++)
+				cout<<" ";
+			
+			if(type==2 || type==3)
+				cout<<"|";
+			else
+				cout<<" ";
+		}
+		cout<<endl;
+	}
+}
+
+int main()
+{
+	//s+2 column,2s+3 row
+	while(cin>>s>>n)
+	{
+		if(s==0 && n=="0")
+			break;
+		draw_h(0);
+		draw_v(0);
+		draw_h(1);
+		draw_v(1);
+		draw_h(2);
+		cout<<endl;
+	}
+}
