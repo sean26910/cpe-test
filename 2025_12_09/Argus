@@ -24,7 +24,7 @@ struct cmp
 		return (a.regi_time>b.regi_time || (a.regi_time==b.regi_time && a.regi_id>b.regi_id));
 	}
 };
-
+// in priority queue,!false means a is in front of b
 
 int main()
 {
