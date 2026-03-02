@@ -1,0 +1,49 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+#include<climits>
+#include<map>
+#include<iomanip>
+#include<chrono>
+#include<math.h>
+#include<queue>
+using namespace std;
+
+struct regi_info
+{
+	int regi_id;
+	int regi_period;
+	int regi_time;
+	regi_info(int a,int b,int c):regi_id(a),regi_time(b),regi_period(c){}
+};
+
+struct cmp
+{
+	bool operator()(regi_info a,regi_info b)
+	{
+		return (a.regi_time>b.regi_time || (a.regi_time==b.regi_time && a.regi_id>b.regi_id));
+	}
+};
+
+
+int main()
+{
+	priority_queue<regi_info,vector<regi_info>,cmp> stor;
+	string regi;
+	int id,period,k;
+	while(cin>>regi)
+	{
+		if(regi=="#")
+			break;
+		cin>>id>>period;
+		stor.push((regi_info){id,period,period});
+	}
+	cin>>k;
+	while(k--)
+	{
+		regi_info tmp = stor.top();
+		cout<<tmp.regi_id<<endl;
+		stor.pop();
+		stor.push((regi_info){tmp.regi_id,tmp.regi_time+tmp.regi_period,tmp.regi_period});
+	}
+}
