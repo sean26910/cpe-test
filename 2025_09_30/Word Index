@@ -1,0 +1,50 @@
+#include<iostream>
+#include<algorithm>
+#include<stack>
+#include<queue>
+using namespace std;
+
+long long C(int n,int k)
+{
+    if(k>n)
+        return 0;
+    long long mul=1,div=1;
+    for(int i=1;i<=k;i++)
+    {
+        mul*=(n-i+1);
+        div*=i;
+    }
+    return mul/div;
+}
+
+long long get_index(const string& word)
+{
+    for(int i=1;i<word.size();i++)
+    {
+        if(word[i]<=word[i-1])
+            return 0;
+    }
+    //b d e,a bcde,d
+    long long rank = 0;
+    for(int i=1;i<word.size();i++)
+        rank+=C(26,i);    
+    
+    int prev = 0;
+    for(int i=0;i<word.size();i++)
+    {
+        int cur = word[i] - 'a' + 1;
+        for(int j=prev+1;j<cur;j++)
+            rank+=C(26-j,(int)word.size()-i-1);
+        prev = cur;
+    }
+    return rank+1;
+}
+
+int main()
+{
+    string input;
+    while(cin>>input)
+    {
+        cout<<get_index(input)<<endl;
+    }
+}
