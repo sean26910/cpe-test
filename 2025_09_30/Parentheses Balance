@@ -1,0 +1,63 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+#include<climits>
+#include<map>
+#include<iomanip>
+#include<chrono>
+#include<math.h>
+#include<string>
+#include<stack>
+#include<queue>
+using namespace std;
+
+
+int main()
+{
+	int t;
+	string para;
+	cin>>t;
+	cin.ignore();
+	while(t--)
+	{
+		stack<char> stor;
+		bool is_corr = true;
+		int index = 0;
+		
+		getline(cin,para);
+		while(index<(int)para.size())
+		{
+			if(para[index]=='('||para[index]=='[')
+				stor.push(para[index]);
+			else
+			{
+				if(!stor.empty())
+				{
+					char pa = stor.top();
+					if(para[index]==']' && pa=='[')
+						stor.pop();
+					else if(para[index]==')' && pa=='(')
+						stor.pop();
+					else
+					{
+						is_corr = false;
+						break;
+					}
+				}
+				else
+				{
+					is_corr = false;
+					break;
+				}	
+			}
+			index++;
+		}
+		if(!stor.empty())
+			is_corr = false;
+
+		if(is_corr)
+			cout<<"Yes\n";
+		else
+			cout<<"No\n";
+	}
+}
