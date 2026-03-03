@@ -5,6 +5,7 @@
 #include<string>
 #include<vector>
 #include<unordered_map>
+#include<set>
 using namespace std;
 
 
@@ -14,7 +15,7 @@ int main()
     while(cin>>n)
     {
         bool is_b2 = true;
-        unordered_map<int,int> stor;
+        set<int> stor;
         vector<int> st(n);
         for(int i=0;i<n;i++)
         {
@@ -31,12 +32,12 @@ int main()
             for(int j=i;j<n;j++)
             {
                 diff = st[j]+st[i];
-                if(stor[diff]>=1)
-                {
-                    is_b2 = false;
-                    break;
-                }
-                stor[diff]++;
+                if(stor.count(diff))
+				{
+					is_b2 = false;
+					break;
+				}
+                stor.insert(diff);
             }
             if(!is_b2)
                 break;
