@@ -1,0 +1,40 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+#include<iomanip>
+
+using namespace std;
+vector<int> ans;
+void solve(const vector<int>& num,int size,int index)
+{
+    if(ans.size()==size)
+    {
+        for(int i=0;i<size;i++)
+            cout<<ans[i]<<" ";
+        cout<<endl;
+        return;
+    }
+    if(index>=num.size())
+        return;
+
+    for(int i=index;i<num.size();i++)
+    {
+        ans.push_back(num[i]);
+        solve(num,size,i+1);
+        ans.pop_back();
+    }
+}
+
+int main()
+{
+    int n;
+    while(cin>>n)
+    {
+        if(n==0)    
+            break;
+        vector<int> stor(n);
+        for(int i=0;i<n;i++)
+            cin>>stor[i];
+        solve(stor,6,0);
+    }
+}
