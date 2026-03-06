@@ -1,0 +1,54 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+#include<iomanip>
+#include<unordered_map>
+#define MAXN 1000000
+using namespace std;
+
+vector<bool> prime(MAXN+1,true);
+
+void prime_num()
+{
+	prime[0]=false;prime[1]=false;
+	for(int i=2;i*i<=MAXN;i++)
+	{
+		if(prime[i])
+		{
+			for(int j=i*i;j<=MAXN;j+=i)
+				prime[j] = false;
+		}
+	}
+	// why begin with i*i,if there is a number,i*k,if k<i,then can
+	// be written by k*i,since k<i,so i*k is become false when deal with k
+}
+
+int main()
+{
+	prime_num();
+	
+	int n;
+	while(cin>>n)
+	{
+		if(n==0)
+			break;
+		// n = a+b,a b is odd prime
+		// b = n-a
+		int max_a,max_b,max_diff=0;
+		bool found = false;
+		//JUST need to run until n/2,because (a,b) (b,a) is same pair
+		for(int i=3;i<=n/2;i+=2)
+		{
+			int b = n - i;
+			if(prime[b] && prime[i])
+			{
+				cout<<n<<" = "<<i<<" + "<<b<<endl;
+				found = true;
+				break;
+			}
+		}
+		
+		if(!found)
+			cout << "Goldbach's conjecture is wrong." << endl;
+	}
+}
