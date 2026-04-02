@@ -1,0 +1,42 @@
+#include <iostream>
+#include <map>
+#include <string>
+#include <iomanip>
+#include <cstring>
+#include <cctype>
+#include <cstdlib>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+bool cmp(int a,int b)
+{
+	return abs(a)>abs(b);
+	//true a在b前
+}
+
+int main() {
+	int p;
+	cin>>p;
+	while(p--)
+	{
+		int lastcolor=0,floor_num,max_floor=1;
+		cin>>floor_num;
+		vector<int> stor(floor_num);
+		for(int i=0;i<floor_num;i++)
+			cin>>stor[i];
+		sort(stor.begin(),stor.end(),cmp);
+		lastcolor = (stor[0]<0)?-1:1;
+		for(int i=1;i<floor_num;i++)
+		{
+			int color = (stor[i]<0)?-1:1;
+
+			if((color<0 && lastcolor>0)||(color>0 && lastcolor<0))
+			{
+				max_floor++;
+				lastcolor = color;
+			}
+		}
+		cout<<max_floor<<endl;
+	}
+}
