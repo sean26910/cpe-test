@@ -1,0 +1,40 @@
+#include <iostream>
+#include <map>
+#include <string>
+#include <iomanip>
+#include <cstring>
+#include <cctype>
+#include <cstdlib>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+int main() {
+	//length,weight,height
+	//length*width,widht*height,length*height
+	int c;
+	cin>>c;
+	while(c--)
+	{
+		int n,ans;
+		cin>>n;
+		ans = 1000000;
+		//l,w,h
+		for(int l=1;l*l*l<=n;l++)
+		{
+			if(n%l!=0)
+				continue;
+			//l*w*h=n,n/l=w*h>=w*w
+			for(int w=l;w*w<=n/l;w++)
+			{
+				//h = n/(l*w)
+				if(n%(l*w)==0)
+				{
+					int h = n/(l*w);
+					ans = min(ans,2*(l*w+w*h+h*l));
+				}
+			}
+		}
+		cout<<ans<<endl;
+	}
+}
