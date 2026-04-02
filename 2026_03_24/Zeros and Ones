@@ -1,0 +1,50 @@
+#include <iostream>
+#include <map>
+#include <string>
+#include <iomanip>
+#include <cstring>
+#include <cctype>
+#include <cstdlib>
+#include <algorithm>
+#include <vector>
+#include <cmath>
+using namespace std;
+long long dp[65][105][65],n,k;
+long long dfs(int idx,int rem,int ones)
+{
+	if(idx==n)
+	{
+		if(rem==0 && ones*2==n)
+			return 1;
+		return 0;
+	}
+
+	if(dp[idx][rem][ones]!=-1)
+		return dp[idx][rem][ones];
+
+	long long ans = 0;
+	ans+=dfs(idx+1,(rem*2)%k,ones);
+	ans+=dfs(idx+1,(rem*2+1)%k,ones+1);
+
+	return dp[idx][rem][ones] = ans;
+}
+
+int main() {
+	int t;
+	cin>>t;
+	for(int i=1;i<=t;i++)
+	{
+		cin>>n>>k;
+		cout<<"Case "<<i<<": ";
+		if(n%2!=0 || k==0)
+		{
+			cout<<0<<endl;
+			continue;
+		}
+		memset(dp,-1,sizeof(dp));
+
+		long long result = dfs(1,1%k,1);
+		cout<<result<<endl;
+	}
+}
+	
