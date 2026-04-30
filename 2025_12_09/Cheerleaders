@@ -1,0 +1,68 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+int matrix[401][401],mod=1000007;
+
+void init()
+{
+	matrix[0][0]=1;
+	for(int i=1;i<401;i++)
+	{
+		matrix[i][0]=1;
+		for(int j=1;j<=i;j++)
+			matrix[i][j] = (matrix[i-1][j-1]+matrix[i-1][j])%mod;
+	}
+}
+
+int main() {
+	int t;
+	cin>>t;
+	init();
+	for(int i=1;i<=t;i++)
+	{
+		int m,n,k,ans=0;
+		cin>>m>>n>>k;
+		//top down left right
+		for(int j=0;j<16;j++)
+		{
+			int rows = m;
+			int column = n;
+			int cnt = 0;
+
+			if(j&1)
+			{
+				cnt++;
+				column--;
+			}
+			if(j&2)
+			{
+				cnt++;
+				column--;
+			}
+			if(j&4)
+			{
+				cnt++;
+				rows--;
+			}
+			if(j&8)
+			{
+				cnt++;
+				rows--;
+			}
+
+			if(rows<0 || column<0)
+				continue;
+
+			int re = rows*column;
+			if(re<k)
+				continue;
+
+			if(cnt%2)
+				ans = (ans-matrix[re][k]+mod)%mod;
+			else
+				ans = (ans+matrix[re][k])%mod;
+		}
+		cout << "Case " << i << ": " << ans << "\n";
+	}
+}	
