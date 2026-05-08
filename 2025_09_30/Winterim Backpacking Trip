@@ -1,0 +1,51 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <fstream>
+#include <ostream>
+#include <map>
+#include <queue>
+#include <stack>
+#include <iomanip>
+#include <numeric>
+#include <algorithm>
+using namespace std;
+
+
+
+int main() {
+    int n,k;
+    while(cin>>n>>k)
+    {
+        vector<int> stor(n+1);
+        for(int i=0;i<=n;i++)
+            cin>>stor[i];
+
+        int left = *max_element(stor.begin(),stor.end()),ans=0;
+        int right = accumulate(stor.begin(),stor.end(),0);
+
+        while(left<=right)
+        {
+            int days=1,sums=0,mid = (right+left)/2;
+            for(int i=0;i<stor.size();i++)
+            {
+                if(sums+stor[i]<=mid)
+                    sums+=stor[i];
+                else
+                {
+                    days++;
+                    sums = stor[i];
+                }
+            }
+
+            if(days<=k+1)
+            {
+                right = mid-1;
+                ans = mid;
+            }
+            else
+                left = mid+1;
+        }
+        cout<<ans<<endl;
+    }
+}	
