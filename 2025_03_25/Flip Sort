@@ -1,0 +1,39 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cmath>
+#include <fstream>
+#include <ostream>
+#include <map>
+#include <queue>
+#include <stack>
+#include <iomanip>
+#include <numeric>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    int n;
+    while(cin>>n)
+    {
+        int flip = 0;
+        vector<int> stor(n);
+        for(int i=0;i<n;i++)
+            cin>>stor[i];
+
+        for(int i=0;i<n;i++)
+        {
+            for(int j=1;j<n-i;j++)
+            {
+                if(stor[j]<stor[j-1])
+                {
+                    flip++;
+                    swap(stor[j],stor[j-1]);
+                }
+            }
+        }
+
+        cout<<"Minimum exchange operations : "<<flip<<endl;
+    }
+}
