@@ -1,0 +1,43 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cmath>
+#include <fstream>
+#include <ostream>
+#include <map>
+#include <queue>
+#include <stack>
+#include <iomanip>
+#include <numeric>
+#include <set>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    string input;
+    set<string> stor;
+    while(getline(cin,input))
+    {
+        for(int i=0;i<input.size();i++)
+        {
+            int start,index;
+            string target;
+            if(isalpha(input[i]))
+            {
+                start=i,index = i;
+                string target;
+                while(index<input.size() && isalpha(input[index]))
+                {
+                    input[index] = tolower(input[index]);
+                    index++;
+                }
+                target = input.substr(start,index-start);
+                stor.insert(target);
+                i = index-1;
+            }
+        }
+    }
+    for(auto x:stor)
+        cout<<x<<endl;
+}
