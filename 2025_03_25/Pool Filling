@@ -1,0 +1,70 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cmath>
+#include <fstream>
+#include <ostream>
+#include <map>
+#include <queue>
+#include <stack>
+#include <iomanip>
+#include <numeric>
+#include <set>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        bool find = false;
+        int capacity,target_tem,jars,jar_volume,jar_tem,ans_1,ans_2;
+        cin>>capacity>>target_tem>>jars;
+        vector<pair<int,int>> stor;
+        vector<long long> volumesum(jars+1);
+        vector<long long> temsum(jars+1);
+        for(int i=0;i<jars;i++)
+        {
+            cin>>jar_volume>>jar_tem;
+            stor.push_back({jar_volume,jar_tem});
+        }
+
+        for(int i=0;i<jars;i++)
+        {
+            volumesum[i+1] = volumesum[i]+stor[i].first;
+            temsum[i+1] = temsum[i]+stor[i].second*stor[i].first;
+        }
+
+        double best = 1e18;
+
+        for(int i=1;i<=jars;i++)
+        {
+            for(int j=i;j<=jars;j++)
+            {
+                long long re_vosum = volumesum[j]-volumesum[i-1];
+                long long re_temsum = temsum[j]-temsum[i-1];
+                if(re_vosum<(capacity+1)/2)
+                    continue;
+                if(re_vosum>capacity)
+                    break;
+
+                double result = (double)re_temsum/re_vosum;
+                double diff = abs(result-target_tem);
+
+                if(diff<=5 && diff<best)
+                {
+                    find = true;
+                    best = diff;
+                    ans_1 = i;
+                    ans_2 = j;
+                }
+            }
+        }
+        if(find)
+            cout<<ans_1-1<<" "<<ans_2-1<<endl;
+        else
+            cout<<"Not possible\n";
+    }
+}
