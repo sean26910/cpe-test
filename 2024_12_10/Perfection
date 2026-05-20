@@ -1,0 +1,48 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cmath>
+#include <fstream>
+#include <ostream>
+#include <map>
+#include <queue>
+#include <climits>
+#include <stack>
+#include <iomanip>
+#include <numeric>
+#include <set>
+#include <algorithm>
+#include <string.h>
+using namespace std;
+
+
+int main() {
+    int n;
+    bool first = true;
+    while(cin>>n)
+    {
+        if(n==0)
+        {
+            cout<<"END OF OUTPUT\n";
+            break;
+        }
+
+        int divisor = 1,num=n,total=0;
+
+        while(divisor<=(num/2))
+        {
+            if(num%divisor==0)
+                total+=divisor;
+            divisor++;
+        }
+        if(first)
+            cout<<"PERFECTION OUTPUT\n";
+        if(total==n)
+            cout<<setw(5)<<n<<"  "<<"PERFECT\n";
+        else if(total<n)
+            cout<<setw(5)<<n<<"  "<<"DEFICIENT\n";
+        else
+            cout<<setw(5)<<n<<"  "<<"ABUNDANT\n";
+        first = false;
+    }
+}
