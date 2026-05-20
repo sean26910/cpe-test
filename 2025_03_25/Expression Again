@@ -1,0 +1,63 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cmath>
+#include <fstream>
+#include <ostream>
+#include <map>
+#include <queue>
+#include <climits>
+#include <stack>
+#include <iomanip>
+#include <numeric>
+#include <set>
+#include <algorithm>
+#include <string.h>
+using namespace std;
+
+
+int main() {
+    int n,m;
+    while(cin>>n>>m)
+    {
+        int total_count = n+m,offset=5100,range=10200;
+        vector<int> stor(total_count);
+        vector<vector<bool>> dp(n+1,vector<bool>(range,false));
+        dp[0][offset] = true;
+
+        int total = 0;
+        for(int i=0;i<total_count;i++)
+        {
+            cin>>stor[i];
+            total+=stor[i];
+        }
+        
+        for(int i=0;i<total_count;i++)
+        {
+            int x = stor[i];
+            for(int j=n-1;j>=0;j--)
+            {
+                for(int s=-2500;s<=2500;s++)
+                {
+                    if(dp[j][s+offset])
+                        dp[j+1][s+x+offset] = true;
+                }
+            }
+        }
+
+        int maxans = INT_MIN;
+        int minans = INT_MAX;
+
+        for(int s = -2500;s<=2500;s++)
+        {
+            if(dp[n][s+offset])
+            {
+                int value = s*(total-s);
+
+                maxans = max(maxans,value);
+                minans = min(minans,value);
+            }
+        }
+        cout<<maxans<<" "<<minans<<endl;
+    }
+}
