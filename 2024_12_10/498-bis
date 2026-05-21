@@ -1,0 +1,48 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cmath>
+#include <fstream>
+#include <ostream>
+#include <map>
+#include <queue>
+#include <climits>
+#include <stack>
+#include <iomanip>
+#include <numeric>
+#include <set>
+#include <algorithm>
+#include <string.h>
+#include <sstream>
+using namespace std;
+
+long long pow(int a,int b)
+{
+    long long result = 1;
+    for(int i=0;i<b;i++)
+        result*=a;
+    return result;
+}
+
+int main() {
+    int x;
+    while(cin>>x)
+    {
+        
+        int a,mul,out;
+        long long result = 0;
+        string input;
+        vector<long long> stor;
+        stringstream ss;
+        getline(cin,input);
+        getline(cin,input);
+        ss<<input;
+        while(ss>>out)
+            stor.push_back(out);
+        mul = stor.size()-1;
+
+        for(int i=0;i<mul;i++)
+            result = result*x+stor[i]*(mul-i);
+        cout<<result<<endl;
+    }
+}
