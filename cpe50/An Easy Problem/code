@@ -1,0 +1,53 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cmath>
+#include <fstream>
+#include <ostream>
+#include <map>
+#include <queue>
+#include <climits>
+#include <stack>
+#include <iomanip>
+#include <numeric>
+#include <set>
+#include <algorithm>
+#include <string.h>
+#include <sstream>
+using namespace std;
+
+int getdigit(char c)
+{
+    if(isdigit(c))
+        return c-'0';
+    else if(c>='A' && c<='Z')
+        return c-'A'+10;
+    else
+        return c-'a'+36;
+}
+
+int main() {
+    string input;
+    while(cin>>input)
+    {
+        int maxdigit=0,sums=0;
+        bool found = false;
+        for(int i=0;i<input.size();i++)
+        {
+            maxdigit = max(maxdigit,getdigit(input[i]));
+            sums+=getdigit(input[i]);
+        }
+
+        for(int i=max(2,maxdigit+1);i<=62;i++)
+        {
+            if(sums%(i-1)==0)
+            {
+                cout<<i<<endl;
+                found = true;
+                break;
+            }
+        }
+        if(!found)
+            cout<<"such number is impossible!\n";
+    }
+}
