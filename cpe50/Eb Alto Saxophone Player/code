@@ -1,0 +1,78 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cmath>
+#include <fstream>
+#include <ostream>
+#include <map>
+#include <queue>
+#include <climits>
+#include <stack>
+#include <iomanip>
+#include <numeric>
+#include <set>
+#include <algorithm>
+#include <string.h>
+#include <sstream>
+using namespace std;
+
+int finger[14][10]={
+    {0,1,1,1,0,0,1,1,1,1},
+    {0,1,1,1,0,0,1,1,1,0},
+    {0,1,1,1,0,0,1,1,0,0},
+    {0,1,1,1,0,0,1,0,0,0},
+    {0,1,1,1,0,0,0,0,0,0},
+    {0,1,1,0,0,0,0,0,0,0},
+    {0,1,0,0,0,0,0,0,0,0},
+    {0,0,1,0,0,0,0,0,0,0},
+    {1,1,1,1,0,0,1,1,1,0},
+    {1,1,1,1,0,0,1,1,0,0},
+    {1,1,1,1,0,0,1,0,0,0},
+    {1,1,1,1,0,0,0,0,0,0},
+    {1,1,1,0,0,0,0,0,0,0},
+    {1,1,0,0,0,0,0,0,0,0}
+};
+
+int main() {
+    map<char,int> index;
+    index['c']=0;index['d']=1;index['e']=2;index['f']=3;index['g']=4;
+    index['a']=5;index['b']=6;index['C']=7;index['D']=8;index['E']=9;
+    index['F']=10;index['G']=11;index['A']=12;index['B']=13;
+    int t;
+    cin>>t;
+    cin.ignore();
+    while(t--)
+    {
+        string song;
+        int fingernum[10]={0};
+        int status[10]={0};
+        getline(cin,song);
+        if(song=="")
+        {
+            cout<<0;
+            for(int i=1;i<10;i++)
+                cout<<" "<<0;
+            cout<<endl;
+            continue;
+        }
+        for(int i=0;i<10;i++)
+        {
+            fingernum[i] = finger[index[song[0]]][i];
+            status[i] = finger[index[song[0]]][i];
+        }
+
+        for(int i=1;i<song.size();i++)
+        {
+            for(int j=0;j<10;j++)
+            {
+                if(status[j]==0 && finger[index[song[i]]][j])
+                    fingernum[j]++;
+                status[j] = finger[index[song[i]]][j];
+            }
+        }
+        cout<<fingernum[0];
+        for(int i=1;i<10;i++)
+            cout<<" "<<fingernum[i];
+        cout<<endl; 
+    }
+}
