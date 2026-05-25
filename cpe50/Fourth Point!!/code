@@ -1,0 +1,63 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cmath>
+#include <fstream>
+#include <ostream>
+#include <map>
+#include <queue>
+#include <climits>
+#include <stack>
+#include <iomanip>
+#include <numeric>
+#include <set>
+#include <algorithm>
+#include <string.h>
+#include <sstream>
+#define pi acos(-1.0)
+using namespace std;
+
+struct point
+{
+    double x,y;
+    bool operator==(point a)
+    {
+        return abs(x-a.x)<1e-8 && abs(y-a.y)<1e-8;
+    }
+};
+
+int main() {
+    point stor[4];
+    while(cin>>stor[0].x>>stor[0].y>>stor[1].x>>stor[1].y>>stor[2].x>>stor[2].y>>stor[3].x>>stor[3].y)
+    {
+        point a,b,c;
+        if(stor[0]==stor[3])
+        {
+            a = stor[0];
+            b = stor[2];
+            c = stor[1];
+        }
+        else if(stor[0]==stor[2])
+        {
+            a = stor[0];
+            b = stor[1];
+            c = stor[3];
+        }
+        else if(stor[1]==stor[2])
+        {
+            a = stor[1];
+            b = stor[3];
+            c = stor[0];
+        }
+        else
+        {
+            a = stor[1];
+            b = stor[2];
+            c = stor[0];
+        }
+        double dx = b.x+c.x-a.x;
+        double dy = b.y+c.y-a.y;
+
+        cout<<fixed<<setprecision(3)<<dx<<" "<<dy<<endl;
+    }
+}
