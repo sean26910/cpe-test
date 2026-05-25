@@ -25,6 +25,7 @@ int main() {
     getline(cin,in);
     while(n--)
     {
+        
         map<string,int> stor;
         int woodnum = 0;
         while(getline(cin,in)&&in!="")
@@ -35,6 +36,7 @@ int main() {
 
         for(auto x:stor)
             cout<<x.first<<" "<<fixed<<setprecision(4)<<x.second*100.0/woodnum<<endl;
-        cout<<endl;
+        if(n)
+            cout<<endl;
     }
 }
