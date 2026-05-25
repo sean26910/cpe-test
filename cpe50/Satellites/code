@@ -1,0 +1,38 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cmath>
+#include <fstream>
+#include <ostream>
+#include <map>
+#include <queue>
+#include <climits>
+#include <stack>
+#include <iomanip>
+#include <numeric>
+#include <set>
+#include <algorithm>
+#include <string.h>
+#include <sstream>
+#define pi acos(-1.0)
+using namespace std;
+
+int main() {
+    double s,a;
+    string deg;
+    while(cin>>s>>a>>deg)
+    {
+        double r = s+6440;
+        if(deg=="min")
+            a/=60.0;
+        if(a>180)
+            a = 360-a;
+
+        double theta = a*pi/180.0;
+
+        double arc = r*theta;
+        double chord = 2*r*sin(theta/2.0);
+        //180o = pi
+        cout<<fixed<<setprecision(6)<<arc<<" "<<chord<<endl;
+    }
+}
