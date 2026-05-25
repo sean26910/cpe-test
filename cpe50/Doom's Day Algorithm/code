@@ -1,0 +1,38 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cmath>
+#include <fstream>
+#include <ostream>
+#include <map>
+#include <queue>
+#include <climits>
+#include <stack>
+#include <iomanip>
+#include <numeric>
+#include <set>
+#include <algorithm>
+#include <string.h>
+#include <sstream>
+using namespace std;
+
+int month[]={0,31,28,31,30,31,30,31,31,30,31,30,31};
+string days[]={"Monday","Tuesday","Wednesday","Thursday"
+,"Friday","Saturday","Sunday"};
+
+int main() {
+    int t;
+	cin>>t;
+	while(t--)
+	{
+		int mo,da,sums=0;
+		cin>>mo>>da;
+
+		for(int i=1;i<mo;i++)
+			sums+=month[i];
+
+		sums+=da-1;
+
+		cout<<days[(5+sums)%7]<<endl;;
+	}
+}
