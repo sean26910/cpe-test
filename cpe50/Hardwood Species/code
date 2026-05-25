@@ -1,0 +1,40 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cmath>
+#include <fstream>
+#include <ostream>
+#include <map>
+#include <queue>
+#include <climits>
+#include <stack>
+#include <iomanip>
+#include <numeric>
+#include <set>
+#include <algorithm>
+#include <string.h>
+#include <sstream>
+#define pi acos(-1.0)
+using namespace std;
+
+int main() {
+    int n;
+    string in;
+    cin>>n;
+    getline(cin,in);
+    getline(cin,in);
+    while(n--)
+    {
+        map<string,int> stor;
+        int woodnum = 0;
+        while(getline(cin,in)&&in!="")
+        {
+            stor[in]++;
+            woodnum++;
+        }
+
+        for(auto x:stor)
+            cout<<x.first<<" "<<fixed<<setprecision(4)<<x.second*100.0/woodnum<<endl;
+        cout<<endl;
+    }
+}
