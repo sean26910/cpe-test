@@ -1,0 +1,57 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cmath>
+#include <fstream>
+#include <ostream>
+#include <map>
+#include <queue>
+#include <climits>
+#include <stack>
+#include <iomanip>
+#include <numeric>
+#include <set>
+#include <algorithm>
+#include <string.h>
+#include <sstream>
+using namespace std;
+
+
+int main()
+{
+    double h,u,d,f;
+	while(cin>>h>>u>>d>>f)
+	{
+		if(h==0)
+			break;
+		//h:height of well,u:the distance can snake climb
+		//d:down in the night distance f:fatigue factor
+
+		double factor_minus = u*f/100.0,distance=0,days=0;
+		bool leave;
+
+		while(true)
+		{
+			days++;
+			distance+=u;
+			if(distance>h)
+			{
+				leave = true;
+				break;
+			}
+			distance-=d;
+			if(distance<0)
+			{
+				leave = false;
+				break;
+			}
+			u-=factor_minus;
+			if(u<0)
+				u=0;
+		}
+		if(!leave)
+			cout<<"failure on day "<<days<<endl;
+		else
+			cout<<"success on day "<<days<<endl;
+	}
+}
