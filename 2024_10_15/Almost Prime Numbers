@@ -1,0 +1,83 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cmath>
+#include <fstream>
+#include <ostream>
+#include <map>
+#include <queue>
+#include <climits>
+#include <stack>
+#include <iomanip>
+#include <numeric>
+#include <set>
+#include <algorithm>
+#include <string.h>
+#include <sstream>
+using namespace std;
+
+vector<bool> prime(1000001,true);
+vector<int> storprime;
+vector<long long> ans;
+
+void getprime()
+{
+	prime[1] = false;
+	for(int i=2;i<=1000000;i++)
+	{
+		if(prime[i])
+		{
+			storprime.push_back(i);
+			for(long long j=1LL*i*i;j<=1000000;j+=i)
+				prime[j] = false;
+		}
+	}
+}
+
+void getans()
+{
+	for(int i=0;i<storprime.size();i++)
+	{
+		long long p = storprime[i];
+		long long value = p*p;
+
+		while(value<=1000000000000LL)
+		{
+			ans.push_back(value);
+			value*=p;
+		}
+	}
+	sort(ans.begin(),ans.end());
+}
+
+int main() {
+    long long n;
+	getprime();
+	getans();
+	cin>>n;
+	while(n--)
+	{
+		long long a,b;
+		int lower=0,upper=0;
+		bool findlower=false,findupper=false;
+		cin>>a>>b;
+
+		for(int i=0;i<ans.size();i++)
+		{
+			if(ans[i]>=a && !findlower)
+			{
+				findlower = true;
+				lower = i;
+			}
+			if(ans[i]>b && !findupper)
+			{
+				findupper = true;
+				upper = i;
+			}
+
+			if(findlower && findupper)
+				break;
+		}
+		cout<<upper-lower<<endl;
+	}
+}
