@@ -1,0 +1,51 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cmath>
+#include <fstream>
+#include <ostream>
+#include <map>
+#include <queue>
+#include <climits>
+#include <stack>
+#include <iomanip>
+#include <numeric>
+#include <set>
+#include <algorithm>
+#include <string.h>
+#include <sstream>
+using namespace std;
+
+
+	
+int main() {
+    int a0;
+	while(cin>>a0)
+	{
+		if(a0==0)
+			break;
+		map<int,int> hash;
+		int num=1;
+		string str;
+		hash[a0] = 1;
+		while(true)
+		{
+			a0*=a0;
+			str = to_string(a0);
+			if(str.size()<8)
+			{
+				string leading;
+				leading.resize(8-str.size(),'0');
+				leading+=str;
+				str = leading;
+			}
+
+			a0 = stoi(str.substr(2,4));
+			if(hash[a0])
+				break;
+			hash[a0] = 1;
+			num++;
+		}
+		cout<<num<<endl;
+	}
+}
